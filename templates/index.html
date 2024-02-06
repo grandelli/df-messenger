@@ -236,6 +236,7 @@ if((!window.cookieBarAdded || window.cookieBarAdded === undefined) && window.loc
   oauth-client-id="750954523766-sngolk08gjqfhrc3vkkiohiknoabsit6.apps.googleusercontent.com"
   agent-id="0ada70b2-a46f-4196-a41d-203857966097"
   language-code="en"
+  intent="WELCOME"
   gcs-upload="dfcx_public_demos"
   allow-feedback="all">
   <df-messenger-chat-bubble
@@ -259,30 +260,19 @@ if((!window.cookieBarAdded || window.cookieBarAdded === undefined) && window.loc
 <script>
     const dfMessenger = document.querySelector('df-messenger');
     dfMessenger.addEventListener('df-list-element-clicked', function (event) {
-        //const listElement = event.composedPath()[0];
-        //const dealer = listElement.title;
-	const dealer = event.detail.event;
-	const metadata = {
+        const dealer = event.detail.event;
+	      const metadata = {
             "parameters": {
                 "dealer-name":dealer
             }
         };
         dfMessenger.setQueryParameters(metadata);
-	event.preventDefault();
+	      event.preventDefault();
         dfMessenger.sendRequest('event','DEALER'); 
     });
-       /*
-    dfMessenger.addEventListener('df-request-sent', function (event) {
-  	event.preventDefault(); // Dialogflow Messenger won't send the request.
-	const dealer = event.detail.event;
-	const metadata = {
-	    "parameters": {
-		"dealer-name":dealer
-	    }
-	};
-	dfMessenger.setQueryParameters(metadata);
-	dfMessenger.sendRequest('event','DEALER');
-    });*/
+    dfMessenger.addEventListener('df-file-upload-completed', function (event) {
+        dfMessenger.sendRequest('query','file uploaded');
+    });
 </script>
 <!-- check -->
 <!-- Google Tag Manager (noscript) -->
